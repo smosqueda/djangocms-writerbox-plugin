@@ -1,0 +1,96 @@
+{% block writer_content %}
+{% if instance %}
+
+<style>
+.the-columnist:after {
+    content: "";
+    display: block;
+    height: 1px;
+    width: 33%;
+    background: #555;
+    overflow:none;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    margin-left: 15px;
+    color:#181818;
+}
+/*.columnist-blue {
+    background-color: deepskyblue; 
+    line-height: 20px;
+}
+
+.columnist-blue-div ul {
+    background-color: deepskyblue;    
+}*/
+ul.columnist-blue {
+    padding-left: 2px;
+}
+ul.columnist-blue li {
+    display: inline-block;
+    width: 48%;
+    list-style-type: none;
+}
+ul.columnist-blue li h3:first-child { 
+    background-color:deepskyblue;    
+    line-height: 22px;
+    color:white;
+    margin-right: 15px
+}
+ul.columnist-blue li:nth-child(2) {
+    background-color:black;
+    color:black;
+    font-size: 16px;
+    line-height: 22px;
+    margin-left: -10px;
+    margin-right: 19px;
+}
+h3.title-columnist {
+    font-family: 'Francois-One', arial, serif;
+    text-transform: uppercase;
+    font-size: 16px;
+}
+</style>
+<!--first writer -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4 columnist-blue-div">
+            <ul class="columnist-blue">
+                <li> <h3 class='title-columnist'>Columnists:</h3></li>
+                <li>whatever</li>
+            </ul>
+        </div>
+    </div>
+</div>
+    {% for key,value in instance.items %}    
+    
+            <div class="container">
+                <div class="row the-columnist">
+                    <div class="col-sm-2">
+                        {% if value.0.photo %}            
+                        <a href="writers/{{ value.0.name_slug }}"><img src="{{value.0.photo.url}}" width='145px' height='97px'/></a>
+                        {% else %}                        
+                            <span>No Photo</span>
+                        {% endif %} 
+                    </div>
+                    <div class="col-sm-2">
+                        <p>
+                            <a href="writers/{{ value.0.name_slug }}">
+                                <span style="font-family:'Bevan',serif; text-transform:uppercase; color:#555555; line-height: 16px; font-size:14px">{{ value.0.first_name }} {{ value.0.last_name }} </span>
+                            </a><br/>
+
+                            <span style="font-family:'Francois One',arial,sans-serif; color:#787878; line-height:16px; font-size:10px;">{{ value.1.publish_date }}</span>
+                            {% if value.1.headline %}
+                            <br/><a href="/story/{{value.1.headline_slug}}" style="font-family:'Francois One',arial,sans-serif; color:#555555; line-height:14px; font-size:12px;">{{ value.1.headline }}</a>                        
+                            <!--br/><a href="writers/{{ value.0.name_slug }}">Check out my bio.</a-->
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+    
+    {% endfor %} 
+
+{% else %}
+    <p>No writers are available.</p>
+{% endif %}
+{% endblock %}

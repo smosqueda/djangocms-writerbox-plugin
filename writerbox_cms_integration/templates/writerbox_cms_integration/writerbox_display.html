@@ -1,0 +1,39 @@
+{% block writer_content %}
+{% if instance %}
+
+<!--first writer -->
+<h3>Getting list of Writers:</h3>
+<div>
+    
+    <ul>
+        
+{% for key,value in instance.items %}
+    <!--span> huh? {{key}} : {{value.0.name_slug}} {{value.1.headline}} {{value.1.body_text}}</span><br/-->
+        
+        <li>{{ value.0.first_name }}{{ value.0.last_name }}   
+
+            {% if value.0.photo %}            
+                <img src="{{value.0.photo.url}}"/>
+            {% else %}                        
+                <span>No Photo</span>
+            {% endif %} 
+            <a href="writers/{{ value.0.name_slug }}">Check out my bio.</a>
+
+            {% if value.1.headline %}
+            <ul>
+                <li>My latest story: {{ value.1.headline }}</li>
+            </ul>                    
+            {% endif %}
+
+        </li> 
+        
+{% endfor %}
+        
+    </ul>
+
+</div>
+
+{% else %}
+    <p>No writers are available.</p>
+{% endif %}
+{% endblock %}
